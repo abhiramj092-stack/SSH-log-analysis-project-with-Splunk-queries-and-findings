@@ -1,0 +1,20 @@
+### SSH Log Analysis - Splunk SPL Queries
+### Dataset: ssh_logs.json (Zeek/Bro-style SSH connection logs)
+
+## 1. Base ingest / source filter
+index=* source="ssh_logs.json" host="LAPTOP-I0P7FD3U" sourcetype="SSH_json"
+
+## 2. Event type breakdown (overall summary of all 4 categories)
+source="ssh_logs.json" | stats count by event_type
+
+## 3. Connection Without Authentication - activity over time per source IP
+index=* event_type="Connection Without Authentication" | timechart count by id.orig_h
+
+## 4. Connection Without Authentication - source/destination pair counts
+index=* event_type="Connection Without Authentication" | stats count by id.orig_h id.resp_h
+
+## 5. Successful SSH Login - source/destination pair counts
+index=* event_type="Successful SSH Login" | stats count by id.orig_h id.resp_h
+
+## 6. Multiple Failed Authentication Attempts - top attacker/target pairs (brute-force detection)
+source="ssh_logs.json" event_type="Multiple Failed Authentication Attempts" | stats count by id.orig_h id.resp_h
