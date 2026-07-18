@@ -62,23 +62,23 @@ index=* event_type="Connection Without Authentication" | timechart count by id.o
 
 - **Event type overview** — a near-even split (~300 events each) across all four categories, meaning roughly 3 out of 4 SSH connections in this dataset did *not* end in a clean successful login.
 
-  ![Event type overview](./screenshots/01-event-type-overview.png)
+  ![Event type overview](01-event-type-overview.png)
 
 - **Raw log sample** — confirms the schema and shows a genuine `Successful SSH Login` from `10.0.0.40 → 10.0.1.3` with `auth_attempts: 3`.
 
-  ![Raw log sample](./screenshots/02-raw-log-sample.png)
+  ![Raw log sample](02-raw-log-sample.png)
 
 - **Brute-force indicators** — `stats count by id.orig_h id.resp_h` on the "Multiple Failed Authentication Attempts" event type surfaces repeat offenders. `10.0.0.28 → 10.0.1.1` stands out with **5** failed-attempt events against a single target — the highest of any pair — a strong brute-force signal worth alerting on.
 
-  ![Multiple failed auth top attackers](./screenshots/03-multiple-failed-auth-top-attackers.png)
+  ![Multiple failed auth top attackers](03-multiple-failed-auth-top-attackers.png)
 
 - **Successful login pairs** — cross-referencing successful logins against the same source IPs helps confirm whether a brute-forcing host ever succeeded in authenticating (lateral movement risk).
 
-  ![Successful SSH login pairs](./screenshots/04-successful-ssh-login-pairs.png)
+  ![Successful SSH login pairs](04-successful-ssh-login-pairs.png)
 
 - **Unauthenticated connections over time** — connections with no completed auth handshake are spread across many source IPs (`10.0.0.10` through `10.0.0.53` and others), suggesting either scanning activity or misconfigured clients rather than one single attacker.
 
-  ![Connection without auth timechart](./screenshots/05-connection-no-auth-timechart.png)
+  ![Connection without auth timechart](05-connection-no-auth-timechart.png)
 
 ## Recommendations
 
