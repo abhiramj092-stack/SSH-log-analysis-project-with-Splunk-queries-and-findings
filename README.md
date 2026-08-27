@@ -91,7 +91,3 @@ index=* event_type="Connection Without Authentication" | timechart count by id.o
 
 - Splunk Enterprise (SPL — Search Processing Language)
 - Zeek/Bro-style SSH connection logs (JSON)
-
-## Author
-
-Add your name / GitHub profile link here.
